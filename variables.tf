@@ -6,10 +6,16 @@ variable "ami_id" {
 }
 
 # Optional, default value is t3.micro. User can always override
+# t3.micro, t3.medium, t3.small
 variable "instance_type" {
     type = string
     default = "t3.micro"
+     validation {
+        condition     = contains(["t3.micro", "t3.medium", "t3.small"], var.instance_type)
+        error_message = "instance_type can only be one of t3.micro, t3.medium, t3.small"
+   }
 }
+
 
 # mandatory, user should supply
 variable "security_group_ids" {
